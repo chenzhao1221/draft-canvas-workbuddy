@@ -4,6 +4,7 @@
   "private": true,
   "license": "Apache-2.0",
   "description": "Draft Canvas for WorkBuddy / CodeBuddy Code: edit the assistant's drafts in a panel inside the conversation.",
+  "repository": "https://github.com/chenzhao1221/draft-canvas-workbuddy",
   "type": "module",
   "workspaces": [
     "packages/core",

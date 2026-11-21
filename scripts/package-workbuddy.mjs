@@ -26,12 +26,9 @@ const VERSION = JSON.parse(readFileSync(join(HOST, 'package.json'), 'utf8')).ver
 /** The connector (what a user installs from the WorkBuddy connector market) is built next to the host. */
 const CONNECTOR_TEMPLATE = join(ROOT, 'connector');
 const CONNECTOR_OUT = join(ROOT, 'dist', 'connector');
-/**
- * Placeholder on purpose: publishing waits for the owner's decision on the npm name. Everything that
- * refers to the package (package.json `name`/`bin`, mcp.json `args`) is derived from this one
- * constant, so the rename is a one-line change plus a rebuild.
- */
-const PACKAGE_NAME = 'draft-canvas-workbuddy-tbd';
+/** npm package name. Everything that refers to the package (package.json `name`/`bin`, mcp.json `args`) derives from it. */
+const PACKAGE_NAME = 'draft-canvas-workbuddy';
+const REPOSITORY = 'https://github.com/chenzhao1221/draft-canvas-workbuddy';
 
 function fail(message) {
   console.error(`package-workbuddy: ${message}`);
@@ -112,6 +109,10 @@ function buildConnector() {
         version: VERSION,
         description: 'Draft Canvas connector for WorkBuddy: an editable draft panel inside the conversation.',
         license: 'Apache-2.0',
+        repository: { type: 'git', url: `git+${REPOSITORY}.git` },
+        homepage: REPOSITORY,
+        bugs: { url: `${REPOSITORY}/issues` },
+        keywords: ['workbuddy', 'mcp', 'draft', 'editor', 'connector'],
         type: 'module',
         bin: { [PACKAGE_NAME]: './bin/draft-canvas.mjs' },
         files: [

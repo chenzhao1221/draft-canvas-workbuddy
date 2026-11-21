@@ -3,7 +3,7 @@
     "draft-canvas": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "draft-canvas-workbuddy-tbd"],
+      "args": ["-y", "draft-canvas-workbuddy"],
       "runtime": {
         "type": "node",
         "version": ">=20.0.0"

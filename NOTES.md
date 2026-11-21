@@ -22,6 +22,8 @@
 
 ## 测试结果（2026-11-21，Windows）
 
+包名定为 `draft-canvas-workbuddy` 后重跑（npm 源 npmmirror）：
+
 ```
 npm run build   OK
 npm test        411 passed, 3 skipped  （24 个测试文件）
@@ -29,13 +31,13 @@ npm test        411 passed, 3 skipped  （24 个测试文件）
   packages/ui               80 passed
   packages/hosts/workbuddy  65 passed
 npm run package:wb         OK（dist/workbuddy 9 个文件；dist/connector 11 个文件）
-npm pack                   draft-canvas-workbuddy-tbd-0.1.0.tgz（11 个文件，约 453 KB）
+npm pack                   draft-canvas-workbuddy-0.1.0.tgz（11 个文件，约 453 KB）
 node scripts/verify-connector.mjs   38/38 通过
 ```
 
 3 个 skipped 是 core 里原有的、按平台跳过的用例，不是本次改动引入。
 
-`verify-connector` 的做法：`tar` 解包到临时目录 → 读 `mcp.json` → 用解出的包代替未发布的占位包名 →
+`verify-connector` 的做法：`tar` 解包到临时目录 → 读 `mcp.json` → 用解出的包代替尚未发布的包名 →
 从别的 cwd 启动 → 完成 initialize / tools/list / resources/list / resources/read（面板 HTML 1.4 MB 内联）/
 `draft_canvas_publish` 后读回 state → 关闭 stdin 退出 0 → 复查 PID 已消失。草稿写到临时 state 目录，
 `~/.workbuddy` 没被写；没有跑 `npm install`，没有装 hook，没有启动浏览器或桌面程序。
@@ -49,18 +51,14 @@ node scripts/verify-connector.mjs   38/38 通过
 
 ## 还缺什么
 
-1. **npm 包名未定**：现在是占位 `draft-canvas-workbuddy-tbd`。定名后改
-   `scripts/package-workbuddy.mjs` 的 `PACKAGE_NAME` 一处，重跑 `npm run package:wb` 和 `npm pack`。
-   包名确定前 `npx` 解析不到，连接器无法真正安装——本地验证用 tarball 代替了这一步。
-2. 未发布 npm、未建公开仓库、未做开放平台认证、未提交上架（按约定等拍板）。
-3. 连接器在真实 WorkBuddy 客户端里的加载与信任流程未实测（只在本地跑了 MCP 协议）。
-4. 面板 widget 1.48 MB，超过规范里 256 KB 的预取阈值；宿主只传 `resourceUri`、由 widget 回拉的路径
+1. 连接器在真实 WorkBuddy 客户端里的加载与信任流程未实测（只在本地跑了 MCP 协议）。
+2. 面板 widget 1.48 MB，超过规范里 256 KB 的预取阈值；宿主只传 `resourceUri`、由 widget 回拉的路径
    在桌面版没实测过（`docs/hosts/workbuddy.md` 已记录）。
-5. `connector-meta.json` 的 `version` 与宿主同步为 0.1.0；上架前建议改成 1.0.0 并从此独立递增。
+3. `connector-meta.json` 的 `version` 与宿主同步为 0.1.0；上架前建议改成 1.0.0 并从此独立递增。
 
-## 需要辰萧拍板
+## 已定 / 待定
 
-- **npm 包名**（决定 `PACKAGE_NAME`、`mcp.json` 的 args、`package.json` 的 name/bin）。
-- **是否公开发布 npm 包 / 是否建公开仓库**（当前只有本地 git，无 remote）。
-- **是否走开放平台认证与上架**（涉及账号、审核、`server_auth` 等；当前 `auth_mode` 省略，无认证）。
-- 连接器对外展示名：现在中英都是 `Draft Canvas`，中文名写作 `Draft Canvas 草稿面板`。
+- **npm 包名**：已定为 `draft-canvas-workbuddy`（v0.1.0）。
+- **公开仓库 / npm 公开发布**：已按此推进（仓库 `chenzhao1221/draft-canvas-workbuddy`）。
+- **开放平台认证与上架**：未提交；按约定先问辰萧（涉及账号、审核、`server_auth`；当前 `auth_mode` 省略，无认证）。
+- 连接器对外展示名：`name_en` = `Draft Canvas`，`name_zh` = `Draft Canvas 草稿面板`。

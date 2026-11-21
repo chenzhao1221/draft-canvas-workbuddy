@@ -47,7 +47,7 @@ npm run package:wb     # → dist/workbuddy/ 与 dist/connector/
 ```bash
 npm run package:wb
 cd dist/connector
-npm pack               # → draft-canvas-workbuddy-tbd-0.1.0.tgz
+npm pack               # → draft-canvas-workbuddy-0.1.0.tgz
 cd ../..
 node scripts/verify-connector.mjs
 ```
@@ -56,7 +56,7 @@ node scripts/verify-connector.mjs
 
 ```
 connector-meta.json      source=draft-canvas，中英名称/描述/示例，minWorkbuddyVersion 5.0.0
-mcp.json                 stdio，npx -y draft-canvas-workbuddy-tbd，runtime.type=node，npmmirror
+mcp.json                 stdio，npx -y draft-canvas-workbuddy，runtime.type=node，npmmirror
 icon.svg                 64×64
 skills/draft-fence/SKILL.md   MCP App 版技能，原样拷入
 mcp/server.mjs           MCP 服务器（无第三方运行时依赖）
@@ -68,15 +68,14 @@ README.md / LICENSE / NOTICE
 
 `verify-connector.mjs` 不解包安装：它用 `tar` 把 tarball 解到临时目录，按 `mcp.json` 的配置从**别的 cwd**
 启动 MCP，跑完 `initialize` / `tools/list` / `resources/read` / `draft_canvas_publish` 后按 PID 关掉进程。
-`npx <包名>` 的解析用解出来的包代替（包未发布前 npx 解析不到），其余与宿主启动路径一致。
 
-### ⚠ 待拍板
+### 包名与发布
 
-- **npm 包名是占位** `draft-canvas-workbuddy-tbd`。正式名确定后，改
-  `scripts/package-workbuddy.mjs` 里的 `PACKAGE_NAME` 一处即可（`package.json` 的 `name`/`bin` 与
-  `mcp.json` 的 `args` 都由它派生），再重新打包。
-- 是否公开发布 npm 包、是否建公开仓库、是否走开放平台认证与上架，都还没做。
-- 包名确定前，连接器只能本地验证，不能真正 `npx` 安装。
+- npm 包名：`draft-canvas-workbuddy`（v0.1.0）。改包名只需改 `scripts/package-workbuddy.mjs` 的
+  `PACKAGE_NAME` 一处（`package.json` 的 `name`/`bin` 与 `mcp.json` 的 `args` 都由它派生），再重新打包。
+- 仓库：[github.com/chenzhao1221/draft-canvas-workbuddy](https://github.com/chenzhao1221/draft-canvas-workbuddy)。
+- 安装连接器时，`npx -y draft-canvas-workbuddy` 会从 npmmirror 拉包；不需要 hook、不需要全局安装。
+- 开放平台认证与上架尚未提交，等辰萧确认后再走。
 
 ## 本地网页版（保留）
 
