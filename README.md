@@ -75,6 +75,7 @@ README.md / LICENSE / NOTICE
   `PACKAGE_NAME` 一处（`package.json` 的 `name`/`bin` 与 `mcp.json` 的 `args` 都由它派生），再重新打包。
 - 仓库：[github.com/chenzhao1221/draft-canvas-workbuddy](https://github.com/chenzhao1221/draft-canvas-workbuddy)。
 - 安装连接器时，`npx -y draft-canvas-workbuddy` 会从 npmmirror 拉包；不需要 hook、不需要全局安装。
+  npm 发布尚未完成（发布前需在本机登录 npm 官方源）。
 - 开放平台认证与上架尚未提交，等辰萧确认后再走。
 
 ## 本地网页版（保留）

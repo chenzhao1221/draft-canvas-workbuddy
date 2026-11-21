@@ -59,6 +59,7 @@ node scripts/verify-connector.mjs   38/38 通过
 ## 已定 / 待定
 
 - **npm 包名**：已定为 `draft-canvas-workbuddy`（v0.1.0）。
-- **公开仓库 / npm 公开发布**：已按此推进（仓库 `chenzhao1221/draft-canvas-workbuddy`）。
+- **公开仓库**：已建并推送 `chenzhao1221/draft-canvas-workbuddy`（Public）。
+- **npm 公开发布**：未完成，本机 npm 未登录官方源（`npm whoami` 返回 ENEEDAUTH）；包名在官方源与镜像均未被占用。
 - **开放平台认证与上架**：未提交；按约定先问辰萧（涉及账号、审核、`server_auth`；当前 `auth_mode` 省略，无认证）。
 - 连接器对外展示名：`name_en` = `Draft Canvas`，`name_zh` = `Draft Canvas 草稿面板`。
