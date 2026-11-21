@@ -1,0 +1,112 @@
+draft-canvas
+Copyright 2026 chenzhao1221
+
+Licensed under the Apache License, Version 2.0.
+See the LICENSE file in this directory.
+
+This product includes or builds on the third-party components below. Version
+ranges are the ones in the package manifests; the resolved versions are in
+package-lock.json (as installed by T-04, 2026-11-13). Licence texts are
+distributed with each component.
+
+======================================================================
+1. Runtime dependencies (bundled into the WorkBuddy host and panel)
+======================================================================
+
+jsdiff ("diff")
+  Version:  ^9.0.0 (resolved 9.0.0)
+  Licence:  BSD-3-Clause
+  URL:      https://github.com/kpdecker/jsdiff
+  Used by:  packages/core, for line diffs (changelog builder, review hunks).
+
+CodeMirror 6
+  Packages: @codemirror/state ^6.7.6, @codemirror/view ^6.43.15,
+            @codemirror/commands ^6.11.1, @codemirror/lang-markdown ^6.5.2
+  Licence:  MIT
+  URL:      https://codemirror.net/ and https://github.com/codemirror
+  Used by:  packages/ui, for the draft editor.
+
+@codemirror/merge
+  Version:  ^6.12.3 (resolved 6.12.3)
+  Licence:  MIT
+  URL:      https://github.com/codemirror/merge
+  Used by:  packages/ui, for the read-only compare view and the per-hunk review view.
+
+markdown-it
+  Version:  ^15.0.3 (resolved 15.0.3)
+  Licence:  MIT
+  URL:      https://github.com/markdown-it/markdown-it
+  Status:   Declared in packages/ui for the optional Markdown preview. The v1
+            code does not import it, so it is not part of the bundle until a
+            preview is added.
+
+React and React DOM
+  Version:  ^18.0.0 || ^19.0.0 (peer), resolved 19.x
+  Licence:  MIT
+  URL:      https://react.dev
+  Used by:  packages/ui and the WorkBuddy panel/widget bundles (bundled, not
+            provided by the host).
+
+@modelcontextprotocol/ext-apps
+  Version:  ^2.0.4
+  Licence:  MIT
+  URL:      https://github.com/modelcontextprotocol/ext-apps
+  Used by:  the MCP App widget entry (packages/hosts/workbuddy/src/mcpPanel.tsx).
+
+Transitive runtime packages (resolved in package-lock.json)
+  MIT:           @codemirror/autocomplete, @codemirror/lang-css,
+                 @codemirror/lang-html, @codemirror/lang-javascript,
+                 @codemirror/language, @codemirror/lint,
+                 @codemirror/streamparser, @lezer/common, @lezer/css,
+                 @lezer/highlight, @lezer/html, @lezer/javascript, @lezer/lr,
+                 @lezer/markdown, @marijn/find-cluster-break, crelt,
+                 linkify-it, mdurl, punycode.js, style-mod, uc.micro,
+                 w3c-keyname
+  BSD-2-Clause:  entities
+  PSF-2.0:       argparse (dependency of markdown-it). Python Software
+                 Foundation licence 2.0 is permissive; it applies only if
+                 markdown-it is bundled. To be confirmed by the licence check
+                 (T-62).
+
+======================================================================
+2. Host-provided packages (NOT redistributed)
+======================================================================
+
+The WorkBuddy / CodeBuddy Code host provides no import map for this connector,
+so nothing is external: React, React DOM and the MCP App SDK are bundled into
+the panel and widget output and are listed in section 1. The Kiro Crew version
+of this project keeps those as host externals; that host is not part of this
+repository.
+
+======================================================================
+3. Formats and UX references (no source code copied)
+======================================================================
+
+Aider
+  Licence:  Apache-2.0
+  URL:      https://github.com/Aider-AI/aider
+  Used for: The SEARCH/REPLACE marker style (<<<<<<< SEARCH, =======,
+            >>>>>>> REPLACE) in the draft-changelog format. Only the marker
+            convention is adopted. No Aider code is included.
+
+Continue.dev
+  Licence:  Apache-2.0
+  URL:      https://github.com/continuedev/continue
+  Used for: Behaviour reference for selection edits and per-hunk accept/reject
+            review. The review model and UI are implemented from scratch. No
+            Continue code is included.
+
+LangChain Open Canvas
+  Licence:  MIT (repository archived 2026-02-26)
+  URL:      https://github.com/langchain-ai/open-canvas
+  Used for: UX reference only: rewrite of a selected passage and linear
+            version paging. Not forked. No Open Canvas code is included.
+
+======================================================================
+4. Development tooling (not distributed)
+======================================================================
+
+TypeScript (Apache-2.0), Vitest, Vite, jsdom (MIT) and their dependencies are
+used to type-check and test the repository and are not part of the WorkBuddy
+output. lightningcss (MPL-2.0, pulled in by Vite) is the only non-permissive
+licence in the development tree; it is tooling and is not distributed.

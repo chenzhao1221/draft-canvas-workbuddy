@@ -1,0 +1,136 @@
+{
+  "name": "edge-cases",
+  "description": "Messages that must not create versions (REQ-1.2, REQ-1.3, REQ-1.4, REQ-5.3) plus three that must (CRLF text, a body containing a code fence, and an id-less draft that gets the auto id draft-1).",
+  "sessionId": "session-edge",
+  "completeness": "full",
+  "messages": [
+    {
+      "id": "e1",
+      "sessionId": "session-edge",
+      "role": "user",
+      "text": "Copy of a draft I pasted:\n\n```draft id=\"pasted\"\nThis is in a user message.\n```\n",
+      "createdAt": "2026-02-01T09:00:00.000Z",
+      "complete": true
+    },
+    {
+      "id": "e2",
+      "sessionId": "session-edge",
+      "role": "assistant",
+      "text": "Example inside an ordinary fenced block:\n\n````text\n```draft id=\"nested\"\nThis is content of the outer block.\n```\n````\n",
+      "createdAt": "2026-02-01T09:00:05.000Z",
+      "complete": true
+    },
+    {
+      "id": "e3",
+      "sessionId": "session-edge",
+      "role": "assistant",
+      "text": "Here is a draft that never ends:\n\n```draft id=\"unfinished\"\nSome text that is still streaming.\n",
+      "createdAt": "2026-02-01T09:00:10.000Z",
+      "complete": true
+    },
+    {
+      "id": "e4",
+      "sessionId": "session-edge",
+      "role": "assistant",
+      "text": "```draft id=\"bad id!\"\nInvalid id.\n```\n\n```draft id=\"\"\nEmpty id.\n```\n",
+      "createdAt": "2026-02-01T09:00:15.000Z",
+      "complete": true
+    },
+    {
+      "id": "e5",
+      "sessionId": "session-edge",
+      "role": "assistant",
+      "text": "In a quote:\n\n> ```draft id=\"quoted\"\n> Not a draft fence.\n> ```\n\nAnd indented by four spaces:\n\n    ```draft id=\"indented\"\n    Not a draft fence either.\n    ```\n",
+      "createdAt": "2026-02-01T09:00:20.000Z",
+      "complete": true
+    },
+    {
+      "id": "e6",
+      "sessionId": "session-edge",
+      "role": "assistant",
+      "text": "In a tilde block:\n\n~~~text\n```draft id=\"tilde\"\nContent of the tilde block.\n```\n~~~\n",
+      "createdAt": "2026-02-01T09:00:25.000Z",
+      "complete": true
+    },
+    {
+      "id": "e7",
+      "sessionId": "session-edge",
+      "role": "assistant",
+      "text": "Windows line endings:\r\n\r\n```draft id=\"crlf\"\r\nFirst line.\r\nSecond line.\r\n```\r\n",
+      "createdAt": "2026-02-01T09:00:30.000Z",
+      "complete": true
+    },
+    {
+      "id": "e8",
+      "sessionId": "session-edge",
+      "role": "assistant",
+      "text": "Body with a code fence:\n\n````draft id=\"with-code\"\nRun this:\n\n```sh\nnpm test\n```\n````\n",
+      "createdAt": "2026-02-01T09:00:35.000Z",
+      "complete": true
+    },
+    {
+      "id": "e9",
+      "sessionId": "session-edge",
+      "role": "system",
+      "text": "```draft id=\"system-message\"\nSystem messages are ignored.\n```\n",
+      "createdAt": "2026-02-01T09:00:40.000Z",
+      "complete": true
+    },
+    {
+      "id": "e10",
+      "sessionId": "session-edge",
+      "role": "tool",
+      "text": "```draft id=\"tool-message\"\nTool payloads are ignored.\n```\n",
+      "createdAt": "2026-02-01T09:00:45.000Z",
+      "complete": true
+    },
+    {
+      "id": "e11",
+      "sessionId": "session-edge",
+      "role": "assistant",
+      "text": "```draft\nNo id here.\n```\n",
+      "createdAt": "2026-02-01T09:00:50.000Z",
+      "complete": true
+    }
+  ],
+  "expectedDraftOrder": ["crlf", "with-code", "draft-1"],
+  "expectedVersions": [
+    {
+      "draftId": "crlf",
+      "versions": [
+        {
+          "n": 1,
+          "sourceMessageId": "e7",
+          "fenceIndex": 0,
+          "lang": "markdown",
+          "body": "First line.\nSecond line."
+        }
+      ]
+    },
+    {
+      "draftId": "with-code",
+      "versions": [
+        {
+          "n": 1,
+          "sourceMessageId": "e8",
+          "fenceIndex": 0,
+          "lang": "markdown",
+          "body": "Run this:\n\n```sh\nnpm test\n```"
+        }
+      ]
+    },
+    {
+      "draftId": "draft-1",
+      "versions": [
+        {
+          "n": 1,
+          "sourceMessageId": "e11",
+          "fenceIndex": 0,
+          "lang": "markdown",
+          "body": "No id here."
+        }
+      ]
+    }
+  ],
+  "expectedUnclosed": ["unfinished"]
+}

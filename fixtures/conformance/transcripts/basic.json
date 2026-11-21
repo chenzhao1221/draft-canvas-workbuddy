@@ -1,0 +1,118 @@
+{
+  "name": "basic",
+  "description": "Two drafts revised over several messages, a message with two fences for one id, an ordinary code block inside a draft body, and a CRLF message. Expected versions follow AI section 13 (last-fence rule, numbering by appearance).",
+  "sessionId": "session-basic",
+  "completeness": "full",
+  "messages": [
+    {
+      "id": "m1",
+      "sessionId": "session-basic",
+      "role": "user",
+      "text": "Write a trip note and a packing list.",
+      "createdAt": "2026-01-01T10:00:00.000Z",
+      "complete": true
+    },
+    {
+      "id": "m2",
+      "sessionId": "session-basic",
+      "role": "assistant",
+      "text": "Here is the trip note.\n\n```draft id=\"trip-note\" rev=\"1\" title=\"Trip note\" lang=\"markdown\"\n# Trip note\n\nWe leave today.\nThe weather is fine.\nSee you there.\n```\n\nAnd the packing list.\n\n```draft id=\"packing\" rev=\"1\" title=\"Packing\"\n## Day one\nBring water.\n## Day two\nBring water.\nLeave early.\n```\n",
+      "createdAt": "2026-01-01T10:00:05.000Z",
+      "complete": true
+    },
+    {
+      "id": "m3",
+      "sessionId": "session-basic",
+      "role": "user",
+      "text": "Thanks. Make the weather line stronger.",
+      "createdAt": "2026-01-01T10:01:00.000Z",
+      "complete": true
+    },
+    {
+      "id": "m4",
+      "sessionId": "session-basic",
+      "role": "assistant",
+      "text": "First attempt:\n\n```draft id=\"trip-note\" rev=\"2\"\n# Trip note\n\nWe leave today.\nThe weather is great.\nSee you there.\n```\n\nCorrected attempt:\n\n```draft id=\"trip-note\" rev=\"2\" title=\"Trip note\"\n# Trip note\n\nWe leave tomorrow.\nThe weather is perfect.\nSee you there.\nBring a hat.\n```\n",
+      "createdAt": "2026-01-01T10:01:10.000Z",
+      "complete": true
+    },
+    {
+      "id": "m5",
+      "sessionId": "session-basic",
+      "role": "assistant",
+      "text": "```draft id=\"packing\" rev=\"2\"\n## Day one\nBring water.\n## Day two\nBring water and snacks.\nLeave early.\n```\n",
+      "createdAt": "2026-01-01T10:02:00.000Z",
+      "complete": true
+    },
+    {
+      "id": "m6",
+      "sessionId": "session-basic",
+      "role": "assistant",
+      "text": "Setup guide with a code block:\n\n````draft id=\"setup-guide\" title=\"Setup\" lang=\"markdown\"\nInstall the tool:\n\n```sh\nnpm install example\n```\n\nThen restart.\n````\n",
+      "createdAt": "2026-01-01T10:03:00.000Z",
+      "complete": true
+    }
+  ],
+  "expectedDraftOrder": ["trip-note", "packing", "setup-guide"],
+  "expectedVersions": [
+    {
+      "draftId": "trip-note",
+      "versions": [
+        {
+          "n": 1,
+          "sourceMessageId": "m2",
+          "fenceIndex": 0,
+          "revHint": "1",
+          "title": "Trip note",
+          "lang": "markdown",
+          "body": "# Trip note\n\nWe leave today.\nThe weather is fine.\nSee you there."
+        },
+        {
+          "n": 2,
+          "sourceMessageId": "m4",
+          "fenceIndex": 1,
+          "revHint": "2",
+          "title": "Trip note",
+          "lang": "markdown",
+          "body": "# Trip note\n\nWe leave tomorrow.\nThe weather is perfect.\nSee you there.\nBring a hat."
+        }
+      ]
+    },
+    {
+      "draftId": "packing",
+      "versions": [
+        {
+          "n": 1,
+          "sourceMessageId": "m2",
+          "fenceIndex": 1,
+          "revHint": "1",
+          "title": "Packing",
+          "lang": "markdown",
+          "body": "## Day one\nBring water.\n## Day two\nBring water.\nLeave early."
+        },
+        {
+          "n": 2,
+          "sourceMessageId": "m5",
+          "fenceIndex": 0,
+          "revHint": "2",
+          "lang": "markdown",
+          "body": "## Day one\nBring water.\n## Day two\nBring water and snacks.\nLeave early."
+        }
+      ]
+    },
+    {
+      "draftId": "setup-guide",
+      "versions": [
+        {
+          "n": 1,
+          "sourceMessageId": "m6",
+          "fenceIndex": 0,
+          "title": "Setup",
+          "lang": "markdown",
+          "body": "Install the tool:\n\n```sh\nnpm install example\n```\n\nThen restart."
+        }
+      ]
+    }
+  ],
+  "expectedUnclosed": []
+}

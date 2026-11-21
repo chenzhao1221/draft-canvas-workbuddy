@@ -1,0 +1,32 @@
+{
+  "name": "draft-canvas-workbuddy",
+  "version": "0.1.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "description": "Draft Canvas for WorkBuddy / CodeBuddy Code: edit the assistant's drafts in a panel inside the conversation.",
+  "type": "module",
+  "workspaces": [
+    "packages/core",
+    "packages/ui",
+    "packages/hosts/workbuddy"
+  ],
+  "scripts": {
+    "typecheck": "tsc -b",
+    "test": "npm run test --workspaces --if-present",
+    "build": "tsc -b",
+    "package:wb": "node scripts/package-workbuddy.mjs",
+    "verify:connector": "node scripts/verify-connector.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "@types/react-dom": "^19.3.0",
+    "esbuild": "^0.28.2",
+    "jsdom": "^31.0.0",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": "^2.0.4"
+  }
+}

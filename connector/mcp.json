@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "draft-canvas": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "draft-canvas-workbuddy-tbd"],
+      "runtime": {
+        "type": "node",
+        "version": ">=20.0.0"
+      },
+      "npmRegistry": "https://registry.npmmirror.com",
+      "timeout": 30000
+    }
+  }
+}

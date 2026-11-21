@@ -1,0 +1,22 @@
+{
+  "name": "Draft Canvas",
+  "name_zh": "Draft Canvas 草稿面板",
+  "name_en": "Draft Canvas",
+  "description": "Edit the assistant's drafts in a panel inside the chat; changes come back with your next message.",
+  "description_zh": "在对话里打开草稿面板，直接改助手写的稿子；改动随下一条消息发回去。",
+  "description_en": "Open a draft panel inside the chat, edit what the assistant wrote, and send the changes back with your next message.",
+  "source": "draft-canvas",
+  "type": "mcp",
+  "version": "0.1.0",
+  "examples_zh": [
+    "把这篇文章放进草稿面板，我要边看边改",
+    "打开草稿面板，看看上一版的改动",
+    "把这段话改得口语一点，然后放回面板"
+  ],
+  "examples_en": [
+    "Put this article in the draft panel so I can edit it",
+    "Open the draft panel and show me the last revision",
+    "Make this paragraph more conversational and put it back in the panel"
+  ],
+  "minWorkbuddyVersion": "5.0.0"
+}

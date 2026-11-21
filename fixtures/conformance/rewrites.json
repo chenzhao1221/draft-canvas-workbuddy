@@ -1,0 +1,61 @@
+{
+  "description": "Rewrite messages for REQ-12 and AI section 12. `selection` uses 1-based lines and code-point offsets (end exclusive). Each case is sent as `formatRewriteMessage(toRewriteRequest(...))` and must parse back to the same request.",
+  "cases": [
+    {
+      "name": "ai-12.3-cjk-and-emoji",
+      "req": "REQ-12.2, REQ-12.4",
+      "id": "essay-main",
+      "rev": 3,
+      "body": "# 开场白\n\n我们今天出发 🚀 去海边。\n天气很好。",
+      "selection": { "startLine": 3, "startOffset": 4, "endLine": 3, "endOffset": 12 },
+      "instruction": "请把这段改得更口语，保留原意。",
+      "expectedSelection": "出发 🚀 去海边",
+      "expectedFenceLength": 3,
+      "expectedMessage": "```draft-rewrite id=\"essay-main\" rev=\"3\" start_line=\"3\" end_line=\"3\" start_offset=\"4\" end_offset=\"12\"\n出发 🚀 去海边\n```\n\n请把这段改得更口语，保留原意。"
+    },
+    {
+      "name": "ai-12.3-multi-line",
+      "req": "REQ-12.2, REQ-12.4",
+      "id": "essay-main",
+      "rev": 3,
+      "body": "# 开场白\n\n我们今天出发 🚀 去海边。\n天气很好。",
+      "selection": { "startLine": 3, "startOffset": 9, "endLine": 4, "endOffset": 2 },
+      "instruction": "Make this flow better.",
+      "expectedSelection": "去海边。\n天气",
+      "expectedFenceLength": 3
+    },
+    {
+      "name": "whole-document",
+      "req": "REQ-12.3",
+      "id": "short-note",
+      "rev": 1,
+      "body": "First line.\nSecond line.",
+      "selection": { "startLine": 1, "startOffset": 0, "endLine": 2, "endOffset": 12 },
+      "instruction": "Rewrite the whole note.",
+      "expectedSelection": "First line.\nSecond line.",
+      "expectedFenceLength": 3
+    },
+    {
+      "name": "body-with-code-fence-needs-four-backticks",
+      "req": "REQ-12.2, REQ-3.2, AI 10.4",
+      "id": "code-selection",
+      "rev": 2,
+      "body": "Intro\n\n```js\nconst x = 1;\n```\n\nOutro",
+      "selection": { "startLine": 3, "startOffset": 0, "endLine": 5, "endOffset": 3 },
+      "instruction": "Explain this snippet.",
+      "expectedSelection": "```js\nconst x = 1;\n```",
+      "expectedFenceLength": 4
+    },
+    {
+      "name": "emoji-only",
+      "req": "REQ-12.4",
+      "id": "emoji",
+      "rev": 1,
+      "body": "Party 🎉 time 🎉 now",
+      "selection": { "startLine": 1, "startOffset": 6, "endLine": 1, "endOffset": 7 },
+      "instruction": "Use a different emoji.",
+      "expectedSelection": "🎉",
+      "expectedFenceLength": 3
+    }
+  ]
+}

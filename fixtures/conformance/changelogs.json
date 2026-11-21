@@ -1,0 +1,122 @@
+{
+  "description": "Changelog validity cases (REQ-8, AI section 11). `expect` is what buildChangelog must return. `expectedBlocks` is exact for the worked examples from AI 11.3-11.5. Every `changelog` case must also apply to its base to give `working` exactly, with each SEARCH unique and the blocks in order without overlap.",
+  "cases": [
+    {
+      "name": "ai-11.3-change-and-insertion",
+      "req": "REQ-8.1, REQ-8.2, REQ-8.3",
+      "id": "trip-note",
+      "baseVersion": 2,
+      "base": "# Trip note\n\nWe leave today.\nThe weather is fine.\nSee you there.",
+      "working": "# Trip note\n\nWe leave today.\nThe weather is perfect.\nSee you there.\nBring a hat.",
+      "expect": "changelog",
+      "expectedBlocks": [
+        { "search": "The weather is fine.", "replace": "The weather is perfect." },
+        { "search": "See you there.", "replace": "See you there.\nBring a hat." }
+      ]
+    },
+    {
+      "name": "ai-11.4-widening-for-uniqueness",
+      "req": "REQ-8.2",
+      "id": "packing",
+      "baseVersion": 1,
+      "base": "## Day one\nBring water.\n## Day two\nBring water.\nLeave early.",
+      "working": "## Day one\nBring water.\n## Day two\nBring water and snacks.\nLeave early.",
+      "expect": "changelog",
+      "expectedBlocks": [
+        { "search": "## Day two\nBring water.", "replace": "## Day two\nBring water and snacks." }
+      ]
+    },
+    {
+      "name": "ai-11.5-code-content-and-deletion",
+      "req": "REQ-8.2, REQ-8.3",
+      "id": "setup-guide",
+      "baseVersion": 4,
+      "base": "Install the tool:\n\n```sh\nnpm install example\n```\n\nThen restart.",
+      "working": "Install the tool:\n\n```bash\nnpm install example\n```",
+      "expect": "changelog",
+      "expectedBlocks": [
+        { "search": "```sh", "replace": "```bash" },
+        { "search": "\nThen restart.", "replace": "" }
+      ]
+    },
+    {
+      "name": "deletion-of-one-line",
+      "req": "REQ-8.2",
+      "id": "deletion",
+      "baseVersion": 1,
+      "base": "alpha\nbeta\ngamma",
+      "working": "alpha\ngamma",
+      "expect": "changelog",
+      "expectedBlocks": [{ "search": "beta", "replace": "" }]
+    },
+    {
+      "name": "empty-base",
+      "req": "REQ-8.2, AI 11.2 rule 4",
+      "id": "empty-base",
+      "baseVersion": 1,
+      "base": "",
+      "working": "First line.\nSecond line.",
+      "expect": "changelog",
+      "expectedBlocks": [{ "search": "", "replace": "First line.\nSecond line." }]
+    },
+    {
+      "name": "insertion-at-top-keeps-following-line",
+      "req": "REQ-8.2, AI 11.2 rule 4",
+      "id": "insert-top",
+      "baseVersion": 1,
+      "base": "first\nsecond",
+      "working": "heading\nfirst\nsecond",
+      "expect": "changelog",
+      "expectedBlocks": [{ "search": "first", "replace": "heading\nfirst" }]
+    },
+    {
+      "name": "insertion-of-blank-line-needs-context",
+      "req": "REQ-8.2, AI 11.5",
+      "id": "blank-insert",
+      "baseVersion": 1,
+      "base": "one\n\ntwo",
+      "working": "one\n\ntwo\n",
+      "expect": "changelog",
+      "expectedBlocks": [{ "search": "two", "replace": "two\n" }]
+    },
+    {
+      "name": "no-changes",
+      "req": "REQ-8.6",
+      "id": "same",
+      "baseVersion": 3,
+      "base": "same text",
+      "working": "same text",
+      "expect": "no_changes"
+    },
+    {
+      "name": "crlf-working-copy-is-normalised",
+      "req": "REQ-1.6, REQ-8.3",
+      "id": "crlf-change",
+      "baseVersion": 1,
+      "base": "first\nsecond",
+      "working": "first\r\nsecond changed\r\n",
+      "expect": "changelog",
+      "expectedBlocks": [{ "search": "second", "replace": "second changed\n" }]
+    },
+    {
+      "name": "marker-conflict-in-replace",
+      "req": "REQ-8.5, AI 11.2 rule 9",
+      "id": "marker-replace",
+      "baseVersion": 1,
+      "base": "heading\nold line",
+      "working": "heading\n=======",
+      "expect": "marker_conflict",
+      "expectedConflict": { "line": "=======", "section": "replace" }
+    },
+    {
+      "name": "marker-conflict-in-search",
+      "req": "REQ-8.5, AI 11.2 rule 9",
+      "id": "marker-search",
+      "baseVersion": 1,
+      "base": "heading\n=======",
+      "working": "heading\nnew line",
+      "expect": "marker_conflict",
+      "expectedConflict": { "line": "=======", "section": "search" }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Draft Canvas">
+  <rect width="64" height="64" rx="13" fill="#1f2937"/>
+  <path d="M17 11h21l11 11v31a2 2 0 0 1-2 2H17a2 2 0 0 1-2-2V13a2 2 0 0 1 2-2z" fill="#faf8f5"/>
+  <path d="M38 11v11h11z" fill="#d6d3d1"/>
+  <g stroke="#c2410c" stroke-width="3.2" stroke-linecap="round">
+    <path d="M22 32h19"/>
+    <path d="M22 40h13"/>
+    <path d="M22 48h16"/>
+  </g>
+</svg>
