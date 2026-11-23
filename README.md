@@ -1,7 +1,10 @@
 # Draft Canvas（WorkBuddy 版）
 
-在对话里改稿：助手把稿子发布到 **Draft Canvas 面板**，你直接在面板里改，改动随下一条消息回到模型。
-面板是 MCP App，渲染在 WorkBuddy / CodeBuddy Code 的对话卡片里。
+在 WorkBuddy / CodeBuddy Code 的对话里直接改 AI 写的稿子。**Draft Canvas** 把草稿放进可编辑的对话卡片（MCP App），你可以把修改发回给助手，并对照新旧版本，逐处审阅改动。
+
+[安装连接器](#安装) · [下载 GitHub Release ZIP](https://github.com/chenzhao1221/draft-canvas-workbuddy/releases/tag/v0.1.0) · [查看 npm 包](https://www.npmjs.com/package/draft-canvas-workbuddy)
+
+连接器需要 **Node.js 20+**，在 WorkBuddy 设置中添加并信任后即可使用。
 
 **与 Kiro Crew 版同源**：`packages/core`（围栏解析、版本、changelog、框选改写）和 `packages/ui`（编辑器、版本翻页、
 对比与审阅视图）来自同一个 Kiroween Crew App 仓库，这里只保留 WorkBuddy 宿主与连接器打包。
