@@ -114,7 +114,7 @@ function buildConnector() {
         bugs: { url: `${REPOSITORY}/issues` },
         keywords: ['workbuddy', 'mcp', 'draft', 'editor', 'connector'],
         type: 'module',
-        bin: { [PACKAGE_NAME]: './bin/draft-canvas.mjs' },
+        bin: { [PACKAGE_NAME]: 'bin/draft-canvas.mjs' },
         files: [
           'bin',
           'mcp',
@@ -168,7 +168,7 @@ function checkConnector() {
   const manifest = JSON.parse(readFileSync(join(CONNECTOR_OUT, 'package.json'), 'utf8'));
   if ('private' in manifest) problems.push('package.json: private must be removed');
   if (manifest.name !== PACKAGE_NAME) problems.push('package.json: name must match mcp.json args');
-  if (manifest.bin?.[PACKAGE_NAME] !== './bin/draft-canvas.mjs') problems.push('package.json: bin is not wired to the wrapper');
+  if (manifest.bin?.[PACKAGE_NAME] !== 'bin/draft-canvas.mjs') problems.push('package.json: bin is not wired to the wrapper');
 
   const skill = join(CONNECTOR_OUT, 'skills', 'draft-fence', 'SKILL.md');
   if (!existsSync(skill)) problems.push('missing skills/draft-fence/SKILL.md');

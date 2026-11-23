@@ -2,6 +2,17 @@
 
 在对话里打开草稿面板：助手把稿子发布到面板，你直接改，改动随下一条消息回到模型。
 
+npm：[draft-canvas-workbuddy](https://www.npmjs.com/package/draft-canvas-workbuddy) ·
+仓库：[chenzhao1221/draft-canvas-workbuddy](https://github.com/chenzhao1221/draft-canvas-workbuddy)
+
+## 安装
+
+- **npx（推荐）**：WorkBuddy 设置 → 连接器 → 添加自定义连接器，传输 `stdio`，命令 `npx`，参数
+  `-y draft-canvas-workbuddy`；国内加 `--registry=https://registry.npmmirror.com`（或设
+  `npm_config_registry`）。保存后重启并信任 `draft-canvas`。
+- **本地目录**：直接导入本目录，或在配置里用 `node` 加 `bin/draft-canvas.mjs` 的绝对路径启动。
+- 技能 `draft-fence` 已在 WorkBuddy 技能市场；本目录 `skills/draft-fence/SKILL.md` 是同一条技能。
+
 ## 包里有什么
 
 | 文件 | 说明 |

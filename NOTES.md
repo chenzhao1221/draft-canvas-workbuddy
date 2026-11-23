@@ -54,12 +54,13 @@ node scripts/verify-connector.mjs   38/38 通过
 1. 连接器在真实 WorkBuddy 客户端里的加载与信任流程未实测（只在本地跑了 MCP 协议）。
 2. 面板 widget 1.48 MB，超过规范里 256 KB 的预取阈值；宿主只传 `resourceUri`、由 widget 回拉的路径
    在桌面版没实测过（`docs/hosts/workbuddy.md` 已记录）。
-3. `connector-meta.json` 的 `version` 与宿主同步为 0.1.0；上架前建议改成 1.0.0 并从此独立递增。
+3. `connector-meta.json` 的 `version` 与宿主同步为 0.1.0；后续版本建议改成 1.0.0 并从此独立递增。
 
 ## 已定 / 待定
 
 - **npm 包名**：已定为 `draft-canvas-workbuddy`（v0.1.0）。
 - **公开仓库**：已建并推送 `chenzhao1221/draft-canvas-workbuddy`（Public）。
-- **npm 公开发布**：未完成，本机 npm 未登录官方源（`npm whoami` 返回 ENEEDAUTH）；包名在官方源与镜像均未被占用。
-- **开放平台认证与上架**：未提交；按约定先问辰萧（涉及账号、审核、`server_auth`；当前 `auth_mode` 省略，无认证）。
+- **npm 公开发布**：已完成 `draft-canvas-workbuddy@0.1.0`（官方源，从 `dist/connector` 发布）。
+- **分发**：GitHub Release `v0.1.0` 附连接器 zip；WorkBuddy 开放平台不允许个人开发者创建连接器，不提交市场。
+  技能 `draft-fence` 已在 WorkBuddy 技能市场。
 - 连接器对外展示名：`name_en` = `Draft Canvas`，`name_zh` = `Draft Canvas 草稿面板`。
