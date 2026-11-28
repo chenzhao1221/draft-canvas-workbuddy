@@ -75,6 +75,7 @@ export interface DraftCanvasPanelProps {
    * collapse and fullscreen in the WorkBuddy widget). Use `iconButtonStyle` and `PanelIcon` to match.
    */
   headerActions?: ReactNode;
+  supportLink?: { url: string; open?: (url: string) => Promise<void> };
 }
 
 /** What the user is looking at for one draft. Not part of the session, so it lives in the panel. */
@@ -581,6 +582,7 @@ export function DraftCanvasPanel({
   onDismissedBannersChange,
   diagnostics,
   headerActions,
+  supportLink,
 }: DraftCanvasPanelProps): ReactElement {
   const { controller, snapshot } = useDraftSession(adapter, active, refreshIntervalMs);
   const [dismissedBanners, setDismissedBanners] = useState(() => parseDismissedBanners(storedDismissedBanners));
@@ -631,12 +633,40 @@ export function DraftCanvasPanel({
     [onTextStyleChange],
   );
   const [diagText, setDiagText] = useState<string | null>(null);
+  const [supportLinkFailed, setSupportLinkFailed] = useState(false);
   const toolbar = (
     <span style={{ display: 'inline-flex', alignItems: 'center', gap: 2, marginLeft: 'auto' }} data-testid="panel-toolbar">
       {headerActions}
       <SettingsMenu>
         <TextStyleControls value={textStyle} onChange={changeTextStyle} />
         {languageToggle}
+        {supportLink ? (
+          <>
+            <a
+              href={supportLink.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ ...styles.buttonSmall, textDecoration: 'none' }}
+              onClick={(event) => {
+                if (!supportLink.open) return;
+                event.preventDefault();
+                setSupportLinkFailed(false);
+                void supportLink.open(supportLink.url).catch(() => setSupportLinkFailed(true));
+              }}
+            >
+              ☆ {i18n.t('settings.star')}
+            </a>
+            {supportLinkFailed ? (
+              <input
+                aria-label={i18n.t('settings.star.copy')}
+                readOnly
+                value={supportLink.url}
+                onFocus={(event) => event.currentTarget.select()}
+                style={{ maxWidth: '100%' }}
+              />
+            ) : null}
+          </>
+        ) : null}
         {diagnostics !== undefined ? (
           <button
             type="button"

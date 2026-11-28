@@ -173,7 +173,7 @@ function checkConnector() {
   const skill = join(CONNECTOR_OUT, 'skills', 'draft-fence', 'SKILL.md');
   if (!existsSync(skill)) problems.push('missing skills/draft-fence/SKILL.md');
   else {
-    const text = readFileSync(skill, 'utf8');
+    const text = readFileSync(skill, 'utf8').replaceAll('\r\n', '\n');
     if (!text.startsWith('---\n') || !/^name:\s*draft-fence$/m.test(text) || !/^description:\s*\S/m.test(text)) {
       problems.push('skills/draft-fence/SKILL.md: front matter needs name and description');
     }

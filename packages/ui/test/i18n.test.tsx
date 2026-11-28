@@ -350,6 +350,22 @@ describe('text size and font', () => {
   });
 });
 
+describe('repository link in settings', () => {
+  it('asks the host to open the repository, and shows a copyable link if the host declines', async () => {
+    const url = 'https://github.com/chenzhao1221/draft-canvas-workbuddy';
+    const open = vi.fn().mockRejectedValue(new Error('Host declined'));
+    render(<DraftCanvasPanel adapter={new UiFakeHost()} locale="zh-CN" supportLink={{ url, open }} />);
+
+    expect(screen.queryByRole('link', { name: /在 GitHub 点个 Star/ })).toBeNull();
+    fireEvent.click(await screen.findByTestId('settings-button'));
+    fireEvent.click(screen.getByRole('link', { name: /在 GitHub 点个 Star/ }));
+
+    expect(open).toHaveBeenCalledWith(url);
+    const fallback = await screen.findByRole('textbox', { name: '复制 GitHub 仓库链接' });
+    expect((fallback as HTMLInputElement).value).toBe(url);
+  });
+});
+
 describe('components in Chinese', () => {
   it('translates the comment box', async () => {
     const host = new UiFakeHost({

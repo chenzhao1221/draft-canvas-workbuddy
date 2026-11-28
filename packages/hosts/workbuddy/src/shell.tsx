@@ -29,6 +29,7 @@ export interface PanelShellProps {
   dark?: boolean;
   /** Buttons for the right end of the panel header (collapse, fullscreen in the widget). */
   headerActions?: ReactNode;
+  openSupportLink?: (url: string) => Promise<void>;
 }
 
 export function PanelShell(props: PanelShellProps): ReactElement {
@@ -60,6 +61,10 @@ export function PanelShell(props: PanelShellProps): ReactElement {
         storedDismissedBanners={storedDismissedBanners}
         onDismissedBannersChange={(json: string) => writeStoredDismissedBanners(json)}
         diagnostics={props.diagnostics}
+        supportLink={{
+          url: 'https://github.com/chenzhao1221/draft-canvas-workbuddy',
+          ...(props.openSupportLink ? { open: props.openSupportLink } : {}),
+        }}
         {...(props.headerActions !== undefined ? { headerActions: props.headerActions } : {})}
         {...(props.dark === true ? { cssVariables: DARK_THEME_VARIABLES } : {})}
       />

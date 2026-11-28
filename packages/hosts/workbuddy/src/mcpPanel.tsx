@@ -324,6 +324,10 @@ function Widget(): ReactElement {
           <div style={{ flex: '1 1 auto', minHeight: 0, overflow: 'auto' }}>
             <PanelShell
               adapter={adapter}
+              openSupportLink={async (url) => {
+                const result = await app.openLink({ url });
+                if (result.isError) throw new Error('The host could not open the link.');
+              }}
               // Polling, not push — but replies do show up on their own, so the Crew permission banner is wrong here.
               liveUpdates
               refreshIntervalMs={4_000}
